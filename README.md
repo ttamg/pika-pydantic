@@ -178,7 +178,7 @@ If using docker, you can spin up a RabbitMQ instance for testing using
 
     docker-compose -f docker-compose-rabbit.yml up
 
-The environment variable `RABBIT_URL` can be overwritten to point to your test RabbitMQ instance.
+The environment variable `PIKA_URL` can be overwritten to point to your test RabbitMQ instance.
 
 Then run tests use **pytest**
 
