@@ -1,0 +1,16 @@
+version: "3.2"
+
+# This spins up a RabbitMQ instance for testing purposes
+
+# 
+
+services:
+  rabbitmq:
+    image: rabbitmq:management-alpine
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+

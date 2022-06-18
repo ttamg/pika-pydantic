@@ -1,0 +1,2 @@
+class PikaPydanticException(Exception):
+    pass
