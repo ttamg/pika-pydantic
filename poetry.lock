@@ -1,4 +1,12 @@
 [[package]]
+name = "aenum"
+version = "3.1.11"
+description = "Advanced Enumerations (compatible with Python's stdlib Enum), NamedTuples, and NamedConstants"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "astroid"
 version = "2.11.6"
 description = "An abstract syntax tree for Python with inference support."
@@ -340,9 +348,14 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8,<4.0"
-content-hash = "7f04f729b34848bb4db8ada55355e431aa76ee95f9ba924cbc03dcdd11799c08"
+content-hash = "d03efe8a93948b9e458aaa76e9e219ea760cbcf2ddb9aea6df97ec9eaa29886a"
 
 [metadata.files]
+aenum = [
+    {file = "aenum-3.1.11-py2-none-any.whl", hash = "sha256:525b4870a27d0b471c265bda692bc657f1e0dd7597ad4186d072c59f9db666f6"},
+    {file = "aenum-3.1.11-py3-none-any.whl", hash = "sha256:12ae89967f2e25c0ce28c293955d643f891603488bc3d9946158ba2b35203638"},
+    {file = "aenum-3.1.11.tar.gz", hash = "sha256:aed2c273547ae72a0d5ee869719c02a643da16bf507c80958faadc7e038e3f73"},
+]
 astroid = [
     {file = "astroid-2.11.6-py3-none-any.whl", hash = "sha256:ba33a82a9a9c06a5ceed98180c5aab16e29c285b828d94696bf32d6015ea82a9"},
     {file = "astroid-2.11.6.tar.gz", hash = "sha256:4f933d0bf5e408b03a6feb5d23793740c27e07340605f236496cd6ce552043d6"},

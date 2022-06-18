@@ -70,16 +70,16 @@ class MyMessage(pika_pydantic.BaseModel):
 
 ## Defining queues
 
-We also define the single message queue we will use in this example by definding an `pika_pydantic.Queues` enum in which each element defines both the rabbitMQ queue name to use, AND the data model to validate the data against.
+We also define the single message queue we will use in this example by definding an `pika_pydantic.Queues` enum. The name on the left defines the Enum but also the RabbitMQ queue name. The value on the right defines the data model to use for validation.
 
 ```python
 class MyQueues(pika_pydantic.Queues):
-    MESSAGE = ("message_queue_name", MyMessage)
+    MESSAGE = MyMessage
 ```
 
 This object is the master that defines the valid queues and the corresponding data that all Producers and Consumers must use. Add more elements to this enum as you add queues and data models.
 
-> `pika_pydantic.Queues` objects are a Python `enum.Enum` class but we define the values as a two-tuple. The first element of the tuple is the string name of the queue to be used in RabbitMQ. The second element of the tuple is the `pika_pydantic.BaseModel` data model object that all Producers and Consumers on this queue need to use.
+> `pika_pydantic.Queues` objects are a Python `enum.Enum` class. The RabbitMQ queue name will be set to the same as the enum name (on the left), and the value on the right is the `pika_pydantic.BaseModel` data model object that all Producers and Consumers on this queue need to use.
 
 ## Initialise the Channel
 

@@ -3,8 +3,8 @@ import random
 import string
 from typing import List
 
-import pika_pydantic
 import pika
+import pika_pydantic
 import pytest
 
 
@@ -35,11 +35,8 @@ def TestData():
 
 @pytest.fixture(scope="function")
 def TestQueues(TestMessage, TestData):
-    """Generates new for each test to isolate to new test queue names."""
-    random_id = "".join(random.choice(string.ascii_lowercase) for i in range(10))
-
     class TestQueues(pika_pydantic.Queues):
-        MESSAGE = (f"test_message_{random_id}", TestMessage)
-        DATA = (f"test_data_{random_id}", TestData)
+        MESSAGE = TestMessage
+        DATA = TestData
 
     return TestQueues

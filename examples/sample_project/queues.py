@@ -5,5 +5,5 @@ from . import models
 
 class Queues(pika_pydantic.Queues):
 
-    MESSAGE = ("messages", models.Message)
-    PROCESS_DATA = ("process_it", models.CollectedData)
+    MESSAGE = models.Message
+    PROCESS_DATA = models.CollectedData

@@ -108,8 +108,8 @@ class BlockingChannel(pika.adapters.blocking_connection.BlockingChannel):
                 f"Callback must be a callable with parameters (channel, method, header, data)."
             )
 
-        queue_name = queue.value[0]
-        model = queue.value[1]
+        queue_name = queue.name
+        model = queue.value
 
         def validated_callback(channel, method, header, body):
             """Callback wrapped to first decode and validate the body data."""
@@ -134,12 +134,12 @@ class BlockingChannel(pika.adapters.blocking_connection.BlockingChannel):
         # Validate inputs
         if queue not in self.queues:
             raise PikaPydanticException(f"Queue not recognised.")
-        if not isinstance(data, queue.value[1]):
+        if not isinstance(data, queue.value):
             raise PikaPydanticException(
-                f"Data to publish to this queue must be a {queue.value[1]} object."
+                f"Data to publish to this queue must be a {queue.value} object."
             )
 
-        queue_name = queue.value[0]
+        queue_name = queue.name
 
         self.basic_publish(
             exchange=exchange, routing_key=queue_name, body=data.encode(), **kwargs

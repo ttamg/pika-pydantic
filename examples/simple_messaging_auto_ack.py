@@ -13,7 +13,7 @@ class MyMessage(pika_pydantic.BaseModel):
 
 # Our Queue definitions
 class MyQueues(pika_pydantic.Queues):
-    MESSAGE = ("message_queue_name", MyMessage)
+    MESSAGE = MyMessage
 
 
 # Initialise the pika blocking connection as for standard Pika
