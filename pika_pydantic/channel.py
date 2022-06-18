@@ -88,7 +88,7 @@ class BlockingChannel(pika.adapters.blocking_connection.BlockingChannel):
     def smart_consume(self, queue: Queues, callback: Callable, **kwargs):
         """
         Additional helper method on the pika.channel object to set up a consumer on the
-        queue (mq.Queue) that will parse the data using the relevant pika_pydantic.BaseModel and
+        queue (pika_pydantic.Queue) that will parse the data using the relevant pika_pydantic.BaseModel and
         pass that to the callback.
 
         The callback receives the following parameters(channel, method, header, data).
@@ -122,8 +122,8 @@ class BlockingChannel(pika.adapters.blocking_connection.BlockingChannel):
 
     def smart_publish(self, queue: Queues, data: BaseModel, exchange="", **kwargs):
         """
-        Additional helper method on the pika.channel object that publishes the data (mq.BaseModel)
-        to the queue (mq.Queue).
+        Additional helper method on the pika.channel object that publishes the data (pika_pydantic.BaseModel)
+        to the queue (pika_pydantic.Queue).
 
         This is a wrapper around the standard pika.basic_publish() method that includes
         validation of the data, the queue and encodes the data.

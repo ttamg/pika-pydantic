@@ -1,12 +1,12 @@
 [tool.poetry]
-name = "mq"
+name = "pika-pydantic"
 version = "0.1.0"
 description = "An opinionated Python implementation of the Producer-Consumer Pattern using RabbitMQ on top of the Python pika and pydantic libraries."
 authors = ["Matt Gosden <mdgosden@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-homepage = "https://github.com/ttamg/mq"
-repository = "https://github.com/ttamg/mq"
+homepage = "https://github.com/ttamg/pika-pydantic"
+repository = "https://github.com/ttamg/pika-pydantic"
 keywords = ["pika", "pydantic", "rabbitmq"]
 classifiers = [
     "Operating System :: OS Independent",
