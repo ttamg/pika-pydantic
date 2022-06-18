@@ -9,7 +9,7 @@ def test_attributes_of_blocking_channel(connection, TestQueues):
 
     channel = pika_pydantic.BlockingChannel(connection, TestQueues)
 
-    assert hasattr(channel, "smart_consume")
-    assert hasattr(channel, "smart_publish")
+    assert hasattr(channel, "listen")
+    assert hasattr(channel, "send")
 
     assert hasattr(channel, "start_consuming")

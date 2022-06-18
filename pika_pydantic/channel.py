@@ -16,8 +16,8 @@ class BlockingChannel(pika.adapters.blocking_connection.BlockingChannel):
 
     Additional methods are:
 
-    - smart_consume() - starts a new Consumer
-    - smart_publish() - sends a message to a queue as a Producer
+    - listen() - starts a new Consumer
+    - send() - sends a message to a queue as a Producer
 
     These are opinionated implementations that perform validation
 
@@ -85,7 +85,7 @@ class BlockingChannel(pika.adapters.blocking_connection.BlockingChannel):
             else:
                 evt.dispatch()
 
-    def smart_consume(self, queue: Queues, callback: Callable, **kwargs):
+    def listen(self, queue: Queues, callback: Callable, **kwargs):
         """
         Additional helper method on the pika.channel object to set up a consumer on the
         queue (pika_pydantic.Queue) that will parse the data using the relevant pika_pydantic.BaseModel and
@@ -120,7 +120,7 @@ class BlockingChannel(pika.adapters.blocking_connection.BlockingChannel):
             queue=queue_name, on_message_callback=validated_callback, **kwargs
         )
 
-    def smart_publish(self, queue: Queues, data: BaseModel, exchange="", **kwargs):
+    def send(self, queue: Queues, data: BaseModel, exchange="", **kwargs):
         """
         Additional helper method on the pika.channel object that publishes the data (pika_pydantic.BaseModel)
         to the queue (pika_pydantic.Queue).

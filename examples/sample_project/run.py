@@ -19,7 +19,7 @@ producer_thread.start()
 print("Starting up consumers.")
 channel = open_channel()
 
-channel.smart_consume(queue=Queues.MESSAGE, callback=consumer_1, auto_ack=False)
-channel.smart_consume(queue=Queues.PROCESS_DATA, callback=consumer_2, auto_ack=False)
+channel.listen(queue=Queues.MESSAGE, callback=consumer_1, auto_ack=False)
+channel.listen(queue=Queues.PROCESS_DATA, callback=consumer_2, auto_ack=False)
 
 channel.start_consuming()

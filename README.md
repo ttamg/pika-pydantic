@@ -89,28 +89,28 @@ Now we can initialise the channel and we pass it the `pika.connection` and the `
 channel = pika_pydantic.BlockingChannel(connection=connection, queues=MyQueues)
 ```
 
-> `pika_pydantic.BlockingChannel` is a `pika.BlockingChannel` object with some additional methods attached that allow simpler creation of Consumers (`smart_consume()`) and Producers (`smart_publish()`)
+> `pika_pydantic.BlockingChannel` is a `pika.BlockingChannel` object with some additional methods attached that allow simpler creation of Consumers (`listen()`) and Producers (`send()`)
 
 This object declares all the queues, and validates the message data on each queue and does the necessary encoding and decoding of the data for Consumers and Producers.
 
 ## Create a Consumer
 
-To create a new Consumer for this message queue we use the new `channel.smart_consume(queue, callback)` method. This validates the inputs and does the decoding needed for that particular queue. We define a callback as in pika and add the consumer to the channel.
+To create a new Consumer for this message queue we use the new `channel.listen(queue, callback)` method. This validates the inputs and does the decoding needed for that particular queue. We define a callback as in pika and add the consumer to the channel.
 
 ```python
 def callback(channel, method, frame, data: MyMessage):
     print(f"Received message with title ({data.title}) and text ({data.text}).")
 
-channel.smart_consume(queue=MyQueues.MESSAGE, callback=callback, auto_ack=True)
+channel.listen(queue=MyQueues.MESSAGE, callback=callback, auto_ack=True)
 ```
 
 ## Create a Producer
 
-To create a Producer we use the new `channel.smart_publish(queue, data)` method. This takes the data object and does all the validation and encoding needed to pass it to the RabbitMQ queue.
+To create a Producer we use the new `channel.send(queue, data)` method. This takes the data object and does all the validation and encoding needed to pass it to the RabbitMQ queue.
 
 ```python
 message = MyMessage(title="Important", text="Remember to feed the dog")
-channel.smart_publish(queue=MyQueues.MESSAGE, data=message)
+channel.send(queue=MyQueues.MESSAGE, data=message)
 ```
 
 ## Start it running

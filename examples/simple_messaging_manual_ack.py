@@ -36,4 +36,4 @@ def callback(channel, method, frame, data: MyMessage):
     channel.basic_ack(method.delivery_tag)
 
 
-channel.smart_consume(queue=MyQueues.MESSAGE, callback=callback, auto_ack=False)
+channel.listen(queue=MyQueues.MESSAGE, callback=callback, auto_ack=False)

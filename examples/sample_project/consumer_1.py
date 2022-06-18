@@ -24,7 +24,7 @@ def consumer_1(channel, method, frame, data: Message):
 
     # Producer send to data queue
     collected_data = CollectedData(data=data, counter=len(data))
-    channel.smart_publish(Queues.PROCESS_DATA, collected_data)
+    channel.send(Queues.PROCESS_DATA, collected_data)
 
     # Finally acknowledge using standard pika
     channel.basic_ack(method.delivery_tag)

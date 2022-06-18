@@ -32,7 +32,7 @@ def callback(channel, method, frame, data: MyMessage):
     print(f"I received a message with title ({data.title}) and text ({data.text}).")
 
 
-channel.smart_consume(queue=MyQueues.MESSAGE, callback=callback, auto_ack=True)
+channel.listen(queue=MyQueues.MESSAGE, callback=callback, auto_ack=True)
 
 # Start polling and consuming as normal using
 # channel.start_consuming()
@@ -40,7 +40,7 @@ channel.smart_consume(queue=MyQueues.MESSAGE, callback=callback, auto_ack=True)
 
 # Producers can send messages to the queue simply using
 message = MyMessage(title="Important", text="Remember to feed the dog")
-channel.smart_publish(queue=MyQueues.MESSAGE, data=message)
+channel.send(queue=MyQueues.MESSAGE, data=message)
 
 # For testing purposes we can run the queue without blocking the thread
 connection.process_data_events(time_limit=None)

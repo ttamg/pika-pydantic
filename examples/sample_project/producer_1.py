@@ -20,6 +20,6 @@ def producer_1():
         print("Producer 1 generating a message now.")
 
         message = Message(title="Important", text=f"I rolled a {random.randint(1,7)}")
-        channel.smart_publish(Queues.MESSAGE, message)
+        channel.send(Queues.MESSAGE, message)
 
         print("Producer 1 done.")
