@@ -3,7 +3,6 @@ from __future__ import annotations
 from typing import Callable
 
 import pika
-from attr import s
 
 from pika_pydantic.exceptions import PikaPydanticException
 from pika_pydantic.model import BaseModel
