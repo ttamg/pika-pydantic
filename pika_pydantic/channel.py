@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import Callable
 
 import pika
+from attr import s
 
 from pika_pydantic.exceptions import PikaPydanticException
 from pika_pydantic.model import BaseModel
@@ -27,7 +28,11 @@ class BlockingChannel(pika.adapters.blocking_connection.BlockingChannel):
     """
 
     def __init__(
-        self, connection: pika.BlockingConnection, queues: Queues, **kwargs
+        self,
+        connection: pika.BlockingConnection,
+        queues: Queues,
+        persistent=True,
+        **kwargs,
     ) -> BlockingChannel:
 
         # Validation
@@ -49,7 +54,16 @@ class BlockingChannel(pika.adapters.blocking_connection.BlockingChannel):
         # Set up queues
         self.queues = queues
         for queue in self.queues.all_queues():
-            self.queue_declare(queue=queue, durable=True)
+            if persistent:
+                self.queue_declare(queue=queue, durable=True)
+            else:
+                self.queue_declare(queue=queue)
+
+        # Persistent messages
+        if persistent == True:
+            self.send_properties = pika.BasicProperties(delivery_mode=2)
+        else:
+            self.send_properties = pika.BasicProperties()
 
     def __getattr__(self, attr):
         """Map pika.BlockingChannel attributes to the pika_pydantic.BlockingChannel attributes"""
@@ -142,5 +156,9 @@ class BlockingChannel(pika.adapters.blocking_connection.BlockingChannel):
         queue_name = queue.name
 
         self.basic_publish(
-            exchange=exchange, routing_key=queue_name, body=data.encode(), **kwargs
+            exchange=exchange,
+            routing_key=queue_name,
+            body=data.encode(),
+            properties=self.send_properties,
+            **kwargs,
         )
